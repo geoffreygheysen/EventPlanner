@@ -1,0 +1,16 @@
+# This file is used to define the dependencies for the Flask application.
+Flask==3.1.1                             # Framework principal
+
+# Database dependencies
+SQLAlchemy==2.0.41                       # ORM bas niveau
+Flask-SQLAlchemy==3.1.1                  # Intégration SQLAlchemy + Flask
+psycopg2==2.9.10                         # Connecteur PostgreSQL
+
+# Authentication dependencies
+Flask-Login==0.6.3                       # Gestion de sessions utilisateur
+
+# API dependencies
+marshmallow==4.0.0                       # Sérialisation/désérialisation d'objets
+Flask-RESTful==0.3.10                    # Aide à créer des APIs RESTful
+Flask-JWT-Extended==4.7.1                # Authentification via JSON Web Tokens
+
