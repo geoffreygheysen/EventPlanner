@@ -9,7 +9,7 @@ Développement d'une API REST en Flask permettant de gérer les événements, le
 
 ---
 
-## Objectifs pédagogiques
+## 📚 Objectifs pédagogiques
 
 - Appliquer Flask en architecture MVC complète
 - Utiliser SQLAlchemy pour le mapping base de données
@@ -20,7 +20,7 @@ Développement d'une API REST en Flask permettant de gérer les événements, le
 
 ---
 
-## Entités à modéliser
+## 🧩 Entités à modéliser
 
 - ✅ User : id, email, password (hashé), nom, prénom, rôle (utilisateur/participant/admin), statut,
 infos complémentaires (allergies, GSM...)
@@ -31,7 +31,7 @@ infos complémentaires (allergies, GSM...)
 
 ---
 
-## Gestion des rôles
+## 🛡️ Gestion des rôles
 
 - Utilisateur : inscription, demande de participation, commenter un événement passé
 - Participant : compléter son profil, s’inscrire à un événement, voir ses événements
@@ -55,8 +55,9 @@ infos complémentaires (allergies, GSM...)
 <details>
 <summary>📌 Architecture du projet</summary>
 
-## 🧱 Architecture du projet `EventPlanner`
+### 📁 Arborescence du projet `EventPlanner`
 
+```
 📦 EventPlanner/
 │
 ├── 📂 app/                         # Dossier principal de l'application Flask
@@ -80,13 +81,16 @@ infos complémentaires (allergies, GSM...)
 ├── 📄 README.md                    # Documentation générale du projet
 ├── 📄 requirements.txt             # Liste des dépendances Python à installer
 └── 📄 run.py                       # Point d'entrée principal qui lance l'application Flask
+```
 
 </details>
 
 <details>
 <summary>📌 Récupération du projet depuis GitHub</summary>
 
-## 🧱 Récupération du projet via GitHub
+### 📥 Récupération du projet via GitHub
+
+Commande :
 
 ```bash
 # récuperer le repository
@@ -101,11 +105,13 @@ cd ton-projet
 <details>
 <summary>📌 Mise en place de l'environnement virtuel</summary>
 
-## 🧱 Création et connexion à l'environnemment virtuel
+### 💻 Création et connexion à l'environnemment virtuel
 
 ---
 
-### Sur macOS / Linux (terminal Bash / Zsh)
+#### Sur macOS / Linux (terminal Bash / Zsh)
+
+Commande :
 
 ```bash
 # 1. Créer un environnement virtuel nommé ".venv"
@@ -120,7 +126,9 @@ which python
 
 ---
 
-### Sur Windows (CMD ou PowerShell)
+#### Sur Windows (CMD ou PowerShell)
+
+Commande :
 
 ```bash
 # 1. Créer un environnement virtuel nommé ".venv"
@@ -132,7 +140,9 @@ python -m venv .venv
 
 ---
 
-### 🔚 Pour désactiver l’environnement (Mac/linux ou Windows)
+#### 🔚 Pour désactiver l’environnement (Mac/linux ou Windows)
+
+Commande :
 
 ```bash
 # Désactiver l'environnement
@@ -146,11 +156,11 @@ deactivate
 <details>
 <summary>📌 Installation des packages Python</summary>
 
-## 🛠️ Installation des packages Python nécéssaires à l'application
+### 🧰 Installation des dépendances nécéssaires à l'application
 
 ---
 
-### A copier/coller dans votre fichier app/requirements.txt
+A copier/coller dans votre fichier app/requirements.txt :
 
 ```txt
 # This file is used to define the dependencies for the Flask application.
@@ -172,7 +182,7 @@ Flask-JWT-Extended==4.7.1                # Authentification via JSON Web Tokens
 
 ---
 
-### Commande pour tout installer une fois l'environnement virtuelle créer:
+Commande pour tout installer une fois l'environnement virtuelle créer :
 
 ```bash
 pip install -r requirements.txt
@@ -185,7 +195,7 @@ pip install -r requirements.txt
 <details>
 <summary>📌 Création et connexion à la Database</summary>
 
-## 🛠️ Configuration de la database PostgreSQL
+### 🔗 Configuration de la database PostgreSQL
 
 Créer une base de données via pgAdmin 4 ou autre, puis renseignez les informations dans app/config.py :
 
@@ -193,7 +203,7 @@ La clé secrète est utilisée par Flask pour sécuriser les sessions, les cooki
 
 exemple pour PostgreSQL:
 
-```bash
+```python
 # Clé secrète Flask (`SECRET_KEY`)
 SECRET_KEY = 'votre clé secrète ici'
 
@@ -217,6 +227,8 @@ SQLALCHEMY_DATABASE_URI = URL_DB
 ---
 
 ## 🚀 Lancer l'application python
+
+Commande :
 
 ```bash
 python run.py
