@@ -8,12 +8,12 @@ class User(UserMixin, Base):
     __tablename__ = 'user'
     
     id = Column(Integer, primary_key=True, index=True) 
-    first_name = Column(String(50), nullable=False)
-    last_name = Column(String(50), nullable=False)
-    role = Column(String(20), nullable=False)  # e.g., 'admin', 'user', 'participant'
-    active = Column(Boolean, default=True, nullable=False)
+    first_name = Column(String(50), nullable=True)
+    last_name = Column(String(50), nullable=True)
+    role = Column(String(20), nullable=False, default='user')  # e.g., 'admin', 'user', 'participant'
+    active = Column(Boolean, default=True, nullable=True)
     email = Column(String(120), unique=True, nullable=False)
-    password_hash = Column(String(128), nullable=False)
+    password = Column(String(512), nullable=False)
 
     # Define a relationship one-to-many to the Event model
     events = relationship('Event', back_populates='user')

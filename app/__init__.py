@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from app.config import SECRET_KEY, URL_DB
@@ -13,6 +14,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = URL_DB
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+jwt = JWTManager(app)
 
 # Initialize the database connection
 db_connected = False
@@ -42,7 +45,7 @@ if db_connected:
     # Create all tables in the database
     metadata.create_all(bind=engine)
 
-    from app.routes import user_routes
+    from app.routes import user_routes, auth_routes
 
     print("-------------------------------------------")
     print(" ✅ Database tables created successfully ✅ ")
