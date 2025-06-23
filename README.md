@@ -41,7 +41,7 @@ infos complémentaires (allergies, GSM...)
 
 ## 🚀 Fonctionnalités à implémenter
 
-- 🔴 Inscription & connexion avec JWT
+- ✅ Inscription & connexion avec JWT
 - 🔴 Consultation publique des événements par date/statut
 - 🔴 Demande de rôle participant et validation par admin
 - 🔴 Création/gestion des événements et thèmes par admin
@@ -60,43 +60,52 @@ infos complémentaires (allergies, GSM...)
 ```
 📦 EventPlanner/                             # Dossier racine du projet Flask
 │
-├── 📂 app/                                  # Dossier principal de l'application Flask
+├── 📂 app/                                  # Contient l'ensemble de l'application Flask
 │   │
-│   ├── 📂 controllers/                      # Contient la logique métier (contrôle les flux entre modèles et routes)
-│   │   └── 📄 user_controller.py               # Contrôleur lié à la logique utilisateur
+│   ├── 📂 controllers/                      # Contient la logique métier (gère l'interaction entre modèles et routes)
+│   │   ├── 📄 auth_controller.py               # Contrôleur gérant l'authentification
+│   │   ├── 📄 theme_controller.py              # Contrôleur gérant la logique liée aux thèmes
+│   │   └── 📄 user_controller.py               # Contrôleur gérant la logique liée aux utilisateurs
 │   │
-│   ├── 📂 models/                           # Contient les modèles de données et les schémas de validation
+│   ├── 📂 models/                           # Définit les modèles de données et les schémas de validation
 │   │   │
-│   │   ├── 📂 db/                           # Modèles de base de données (SQLAlchemy ORM)
-│   │   │   ├── 📄 __init__.py                  # Initialise le sous-package `db`, importe les modèles
-│   │   │   ├── 📄 base_model.py                # Modèle de base (hérité par les autres modèles)
-│   │   │   ├── 📄 user_model.py                # Modèle représentant les utilisateurs
-│   │   │   ├── 📄 event_model.py               # Modèle représentant les événements
-│   │   │   ├── 📄 theme_model.py               # Modèle représentant les thèmes d'événement
-│   │   │   ├── 📄 participation_model.py       # Modèle représentant la participation des utilisateurs
-│   │   │   └── 📄 comment_model.py             # Modèle représentant les commentaires
+│   │   ├── 📂 db/                           # Modèles de base de données (via SQLAlchemy ORM)
+│   │   │   ├── 📄 __init__.py                  # Initialise le package `db` et enregistre les modèles
+│   │   │   ├── 📄 base_model.py                # Modèle de base commun à tous les autres (classe mère)
+│   │   │   ├── 📄 user_model.py                # Modèle représentant un utilisateur
+│   │   │   ├── 📄 event_model.py               # Modèle représentant un événement
+│   │   │   ├── 📄 theme_model.py               # Modèle représentant un thème d'événement
+│   │   │   ├── 📄 participation_model.py       # Modèle représentant la participation d'un utilisateur à un événement
+│   │   │   └── 📄 comment_model.py             # Modèle représentant un commentaire d'utilisateur sur un événement
 │   │   │
-│   │   ├── 📂 dto/                          # Contient les schémas de validation (Marshmallow)
+│   │   ├── 📂 dto/                          # Schémas de validation des données (via Marshmallow)
 │   │   │   ├── 📂 user/                        # Schémas relatifs aux utilisateurs
-│   │   │   │   └── 📄 user_schema.py           # Définition des schémas Marshmallow pour User
+│   │   │   │   ├── 📄 user_schema.py               # Schéma de validation pour les données utilisateur
+│   │   │   │   └── 📄 user_update_schema.py        # Schéma de validation pour la mise à jour des utilisateurs
 │   │   │   ├── 📂 event/                       # Schémas relatifs aux événements
 │   │   │   ├── 📂 theme/                       # Schémas relatifs aux thèmes
-│   │   │   ├── 📂 participation/               # Schémas relatifs aux participations
+│   │   │   │   ├── 📄 theme_schema.py              # Schéma de validation pour les données de thème
+│   │   │   │   └── 📄 theme_update_schema.py       # Schéma de validation pour la mise à jour des thèmes
+│   │   │   ├── 📂 participation/                  # Schémas relatifs aux participations
 │   │   │   └── 📂 comment/                     # Schémas relatifs aux commentaires
 │   │
-│   ├── 📂 routes/                           # Définition des routes Flask (Blueprints)
-│   │   └── 📄 user_routes.py                   # Routes liées aux utilisateurs
+│   ├── 📂 routes/                           # Définition des routes Flask (via Blueprints)
+│   │   ├── 📄 auth_routes.py                   # Routes pour l'authentification (connexion, inscription, etc.)
+│   │   ├── 📄 theme_routes.py                  # Routes liées à la gestion des thèmes
+│   │   └── 📄 user_routes.py                   # Routes liées à la gestion des utilisateurs
 │   │
-│   ├── 📂 tools/                            # Modules utilitaires / outils transversaux
-│   │   └── 📄 session_scope.py                 # Context manager pour gérer la session SQLAlchemy proprement
+│   ├── 📂 tools/                            # Modules utilitaires et fonctions transversales
+│   │   ├── 📄 jwt_manager.py                   # Gestion des tokens JWT (encodage, décodage)
+│   │   ├── 📄 role_required.py                 # Décorateur de vérification des rôles/permissions
+│   │   └── 📄 session_scope.py                 # Context manager pour gérer les sessions SQLAlchemy
 │   │
-│   ├── 📄 __init__.py                       # Initialise l'application Flask, les extensions, les Blueprints
-│   └── 📄 config.py                         # Paramètres de configuration (dev, prod, base de données, etc.)
+│   ├── 📄 __init__.py                       # Initialise l'application Flask, les extensions et les Blueprints
+│   └── 📄 config.py                         # Paramètres de configuration (base de données, env dev/prod, etc.)
 │
-├── 📄 .gitignore                            # Spécifie les fichiers/dossiers à ignorer par Git
-├── 📄 README.md                             # Documentation générale du projet (installation, usage, etc.)
-├── 📄 requirements.txt                      # Liste des dépendances Python à installer avec pip
-└── 📄 run.py                                # Point d'entrée de l'application Flask (lance le serveur)
+├── 📄 .gitignore                            # Liste des fichiers/dossiers ignorés par Git
+├── 📄 README.md                             # Documentation du projet (installation, fonctionnement, etc.)
+├── 📄 requirements.txt                      # Liste des dépendances Python du projet
+└── 📄 run.py                                # Point d'entrée principal pour démarrer l'application Flask
 ```
 
 </details>

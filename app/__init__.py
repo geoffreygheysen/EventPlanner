@@ -45,7 +45,7 @@ if db_connected:
     # Create all tables in the database
     metadata.create_all(bind=engine)
 
-    from app.routes import user_routes, auth_routes
+    from app.routes import user_routes, auth_routes, theme_routes
 
     print("-------------------------------------------")
     print(" ✅ Database tables created successfully ✅ ")
