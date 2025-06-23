@@ -58,29 +58,45 @@ infos complémentaires (allergies, GSM...)
 ### 📁 Arborescence du projet `EventPlanner`
 
 ```
-📦 EventPlanner/
+📦 EventPlanner/                             # Dossier racine du projet Flask
 │
-├── 📂 app/                         # Dossier principal de l'application Flask
-│   │   
-│   ├── 📂 controllers/             # Contient la logique métier (controlleurs)
-│   │   
-│   ├── 📂 models/                  # Contient les modèles
-│   │   │
-│   │   ├── 📂 db/                  # Modèles de base de données (SQLAlchemy)
-│   │   │   └── 📄 db_model.py      # Définition des modèles et relations (Base, User, Event, Theme, Participation, Comment)
-│   │   │
-│   ├── 📂 routes/                  # Définition des routes Flask (Blueprints)
-│   │   └── 📄 user_routes.py       # Routes liées aux utilisateurs
+├── 📂 app/                                  # Dossier principal de l'application Flask
 │   │
-│   ├── 📂 tools/                   # Modules utilitaires / helpers
+│   ├── 📂 controllers/                      # Contient la logique métier (contrôle les flux entre modèles et routes)
+│   │   └── 📄 user_controller.py               # Contrôleur lié à la logique utilisateur
 │   │
-│   ├── 📄 __init__.py              # Initialise l'application Flask, extensions, Blueprints
-│   └── 📄 config.py                # Configuration (clé secrète, base de données, etc.)
+│   ├── 📂 models/                           # Contient les modèles de données et les schémas de validation
+│   │   │
+│   │   ├── 📂 db/                           # Modèles de base de données (SQLAlchemy ORM)
+│   │   │   ├── 📄 __init__.py                  # Initialise le sous-package `db`, importe les modèles
+│   │   │   ├── 📄 base_model.py                # Modèle de base (hérité par les autres modèles)
+│   │   │   ├── 📄 user_model.py                # Modèle représentant les utilisateurs
+│   │   │   ├── 📄 event_model.py               # Modèle représentant les événements
+│   │   │   ├── 📄 theme_model.py               # Modèle représentant les thèmes d'événement
+│   │   │   ├── 📄 participation_model.py       # Modèle représentant la participation des utilisateurs
+│   │   │   └── 📄 comment_model.py             # Modèle représentant les commentaires
+│   │   │
+│   │   ├── 📂 dto/                          # Contient les schémas de validation (Marshmallow)
+│   │   │   ├── 📂 user/                        # Schémas relatifs aux utilisateurs
+│   │   │   │   └── 📄 user_schema.py           # Définition des schémas Marshmallow pour User
+│   │   │   ├── 📂 event/                       # Schémas relatifs aux événements
+│   │   │   ├── 📂 theme/                       # Schémas relatifs aux thèmes
+│   │   │   ├── 📂 participation/               # Schémas relatifs aux participations
+│   │   │   └── 📂 comment/                     # Schémas relatifs aux commentaires
+│   │
+│   ├── 📂 routes/                           # Définition des routes Flask (Blueprints)
+│   │   └── 📄 user_routes.py                   # Routes liées aux utilisateurs
+│   │
+│   ├── 📂 tools/                            # Modules utilitaires / outils transversaux
+│   │   └── 📄 session_scope.py                 # Context manager pour gérer la session SQLAlchemy proprement
+│   │
+│   ├── 📄 __init__.py                       # Initialise l'application Flask, les extensions, les Blueprints
+│   └── 📄 config.py                         # Paramètres de configuration (dev, prod, base de données, etc.)
 │
-├── 📄 .gitignore                   # Liste des fichiers/dossiers à ignorer par Git
-├── 📄 README.md                    # Documentation générale du projet
-├── 📄 requirements.txt             # Liste des dépendances Python à installer
-└── 📄 run.py                       # Point d'entrée principal qui lance l'application Flask
+├── 📄 .gitignore                            # Spécifie les fichiers/dossiers à ignorer par Git
+├── 📄 README.md                             # Documentation générale du projet (installation, usage, etc.)
+├── 📄 requirements.txt                      # Liste des dépendances Python à installer avec pip
+└── 📄 run.py                                # Point d'entrée de l'application Flask (lance le serveur)
 ```
 
 </details>
@@ -118,7 +134,7 @@ Commande :
 python3 -m venv .venv
 
 # 2. Activer l'environnement
-source venv/bin/activate
+source .venv/bin/activate
 
 # 3. (Facultatif) Vérifier l'environnement actif
 which python

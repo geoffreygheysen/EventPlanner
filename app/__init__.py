@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from app.config import SECRET_KEY, URL_DB
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.models.db.db_model import Base, User, Event, Theme, Participation, Comment
+from app.models.db import Base, User, Event, Theme, Participation, Comment
 
 # Initialize Flask
 app = Flask(__name__)
