@@ -42,11 +42,11 @@ infos complémentaires (allergies, GSM...)
 ## 🚀 Fonctionnalités à implémenter
 
 - ✅ Inscription & connexion avec JWT
-- 🔴 Consultation publique des événements par date/statut
+- ✅ Consultation publique des événements par date/statut
 - 🔴 Demande de rôle participant et validation par admin
 - 🔴 Création/gestion des événements et thèmes par admin
 - 🔴 Inscription à un événement par un participant
-- 🔴 Ajout de commentaire sur un événement passé
+- ✅ Ajout de commentaire sur un événement passé
 
 ---
 
@@ -63,41 +63,53 @@ infos complémentaires (allergies, GSM...)
 ├── 📂 app/                                  # Contient l'ensemble de l'application Flask
 │   │
 │   ├── 📂 controllers/                      # Contient la logique métier (gère l'interaction entre modèles et routes)
-│   │   ├── 📄 auth_controller.py               # Contrôleur gérant l'authentification
-│   │   ├── 📄 theme_controller.py              # Contrôleur gérant la logique liée aux thèmes
-│   │   └── 📄 user_controller.py               # Contrôleur gérant la logique liée aux utilisateurs
+│   │   ├── 📄 auth_controller.py
+│   │   ├── 📄 comment_controller.py
+│   │   ├── 📄 event_controller.py
+│   │   ├── 📄 participation_controller.py
+│   │   ├── 📄 theme_controller.py
+│   │   └── 📄 user_controller.py
 │   │
 │   ├── 📂 models/                           # Définit les modèles de données et les schémas de validation
 │   │   │
 │   │   ├── 📂 db/                           # Modèles de base de données (via SQLAlchemy ORM)
-│   │   │   ├── 📄 __init__.py                  # Initialise le package `db` et enregistre les modèles
-│   │   │   ├── 📄 base_model.py                # Modèle de base commun à tous les autres (classe mère)
-│   │   │   ├── 📄 user_model.py                # Modèle représentant un utilisateur
-│   │   │   ├── 📄 event_model.py               # Modèle représentant un événement
-│   │   │   ├── 📄 theme_model.py               # Modèle représentant un thème d'événement
-│   │   │   ├── 📄 participation_model.py       # Modèle représentant la participation d'un utilisateur à un événement
-│   │   │   └── 📄 comment_model.py             # Modèle représentant un commentaire d'utilisateur sur un événement
+│   │   │   ├── 📄 __init__.py
+│   │   │   ├── 📄 base_model.py
+│   │   │   ├── 📄 user_model.py
+│   │   │   ├── 📄 event_model.py
+│   │   │   ├── 📄 theme_model.py
+│   │   │   ├── 📄 participation_model.py
+│   │   │   └── 📄 comment_model.py
 │   │   │
 │   │   ├── 📂 dto/                          # Schémas de validation des données (via Marshmallow)
-│   │   │   ├── 📂 user/                        # Schémas relatifs aux utilisateurs
-│   │   │   │   ├── 📄 user_schema.py               # Schéma de validation pour les données utilisateur
-│   │   │   │   └── 📄 user_update_schema.py        # Schéma de validation pour la mise à jour des utilisateurs
-│   │   │   ├── 📂 event/                       # Schémas relatifs aux événements
-│   │   │   ├── 📂 theme/                       # Schémas relatifs aux thèmes
-│   │   │   │   ├── 📄 theme_schema.py              # Schéma de validation pour les données de thème
-│   │   │   │   └── 📄 theme_update_schema.py       # Schéma de validation pour la mise à jour des thèmes
-│   │   │   ├── 📂 participation/                  # Schémas relatifs aux participations
-│   │   │   └── 📂 comment/                     # Schémas relatifs aux commentaires
+│   │   │   ├── 📂 user/
+│   │   │   │   ├── 📄 user_schema.py
+│   │   │   │   └── 📄 user_update_schema.py
+│   │   │   ├── 📂 event/
+│   │   │   │   ├── 📄 event_schema.py
+│   │   │   │   └── 📄 event_update_schema.py
+│   │   │   ├── 📂 theme/
+│   │   │   │   ├── 📄 theme_schema.py
+│   │   │   │   └── 📄 theme_update_schema.py
+│   │   │   ├── 📂 participation/
+│   │   │   │   ├── 📄 participation_schema.py
+│   │   │   │   └── 📄 participation_update_schema.py
+│   │   │   └── 📂 comment/
+│   │   │       ├── 📄 comment_schema.py
+│   │   │       └── 📄 comment_update_schema.py
 │   │
 │   ├── 📂 routes/                           # Définition des routes Flask (via Blueprints)
-│   │   ├── 📄 auth_routes.py                   # Routes pour l'authentification (connexion, inscription, etc.)
-│   │   ├── 📄 theme_routes.py                  # Routes liées à la gestion des thèmes
-│   │   └── 📄 user_routes.py                   # Routes liées à la gestion des utilisateurs
+│   │   ├── 📄 auth_routes.py
+│   │   ├── 📄 comment_routes.py
+│   │   ├── 📄 event_routes.py
+│   │   ├── 📄 participation_routes.py
+│   │   ├── 📄 theme_routes.py
+│   │   └── 📄 user_routes.py
 │   │
 │   ├── 📂 tools/                            # Modules utilitaires et fonctions transversales
-│   │   ├── 📄 jwt_manager.py                   # Gestion des tokens JWT (encodage, décodage)
-│   │   ├── 📄 role_required.py                 # Décorateur de vérification des rôles/permissions
-│   │   └── 📄 session_scope.py                 # Context manager pour gérer les sessions SQLAlchemy
+│   │   ├── 📄 jwt_manager.py
+│   │   ├── 📄 role_required.py
+│   │   └── 📄 session_scope.py
 │   │
 │   ├── 📄 __init__.py                       # Initialise l'application Flask, les extensions et les Blueprints
 │   └── 📄 config.py                         # Paramètres de configuration (base de données, env dev/prod, etc.)

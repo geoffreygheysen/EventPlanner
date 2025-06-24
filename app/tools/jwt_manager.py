@@ -14,7 +14,7 @@ def generate_jwt_token(user, claims=None, expires_in_hours=1):
 
     # Générer le JWT avec durée d'expiration
     access_token = create_access_token(
-        identity=user.id,
+        identity=str(user.id),
         expires_delta=timedelta(hours=expires_in_hours),
         additional_claims=token_claims
     )

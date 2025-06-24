@@ -7,6 +7,7 @@ from app.models.dto.theme.theme_schema import ThemeSchema
 from app.models.dto.theme.theme_update_schema import ThemeUpdateSchema
 from app.tools.session_scope import SessionScope
 
+# ThemeController handles operations related to themes in the application.
 
 class ThemeController(Resource):
     # get all themes
@@ -15,17 +16,6 @@ class ThemeController(Resource):
             themes = session.query(Theme).all()
             theme_schema = ThemeSchema(many=True)
             theme_serialized = theme_schema.dump(themes)
-        return jsonify(theme_serialized), 200
-    
-    # get theme by id
-    def get_theme_by_id(id):
-        with SessionScope() as session:
-            theme = session.query(Theme).filter_by(id=id).first()
-            if not theme:
-                return jsonify({"message": "Theme not found"}), 404
-            
-            theme_schema = ThemeSchema(many=False)
-            theme_serialized = theme_schema.dump(theme)
         return jsonify(theme_serialized), 200
     
     # create a new theme

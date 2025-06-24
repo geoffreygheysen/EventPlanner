@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Date, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from .base_model import Base
 
@@ -10,8 +10,8 @@ class Event(Base):
     name = Column(String(100), nullable=False)
     location = Column(String(200), nullable=False)
     status = Column(String(20), nullable=False)  # e.g., 'scheduled', 'completed', 'cancelled'
-    date_start = Column(DateTime, nullable=False)
-    date_end = Column(DateTime, nullable=False)
+    date_start = Column(Date, nullable=False)
+    date_end = Column(Date, nullable=False)
 
     # Foreign key to the User model
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
